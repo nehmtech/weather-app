@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - Weather App{% endblock title %}
+
+{% block content %}
+<section>
+
+<h2>Find the weather condition wherever!</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="location">Enter the Location to search weather condition:</label>
+    <input type="text" id="location" name="location">
+    <button type="submit">Search</button>
+</form>
+
+<h2>Here is the weather information for the searched location:</h2>
+<ul>
+    {% for weather in weather_data %}
+    <li>{{weather.location}} - Temperature:
+        {{weather.temperature}}°C, Humidity: {{weather.humidity}}%,
+         Description: {{weather.description}} </li>
+         {% empty %}
+         <li>No weather data available, try searching location.</li>
+         {% endfor%}
+</ul>
+</section>
+{% endblock content %}
